@@ -1,4 +1,4 @@
-package server;
+package com.dionysos.winecellar;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
