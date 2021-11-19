@@ -14,14 +14,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.dionysos.winecellar.winecellar.domain.Winecellar;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(of = "wineId")
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Getter
 public class Wine {
@@ -33,7 +32,7 @@ public class Wine {
     @JoinColumn(name = "winecellar_id")
     @NotNull
     private Winecellar winecellar;
-    private Location location;
+    private Location location = Location.NONE;
     private String labelImage;
     private String corkImage;
     private Timestamp purchaseDate;
@@ -42,6 +41,19 @@ public class Wine {
     private Timestamp createdAt;
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    @Builder
+    public Wine(Long wineId, String wineName, Winecellar winecellar,
+        Location location, String labelImage, String corkImage, Timestamp purchaseDate, Timestamp producedDate) {
+        setWinecellar(winecellar);
+        this.wineId = wineId;
+        this.wineName = wineName;
+        this.location = location;
+        this.labelImage = labelImage;
+        this.corkImage = corkImage;
+        this.purchaseDate = purchaseDate;
+        this.producedDate = producedDate;
+    }
 
     public void setWinecellar(Winecellar winecellar) {
         this.winecellar = winecellar;
@@ -60,6 +72,10 @@ public class Wine {
 
         Location(Integer location) {
             this.location = location;
+        }
+
+        public Integer getLocation() {
+            return location;
         }
     }
 }

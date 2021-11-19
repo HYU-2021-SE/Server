@@ -3,6 +3,7 @@ package com.dionysos.winecellar.winecellar.domain;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,20 +19,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.dionysos.winecellar.member.domain.Member;
 import com.dionysos.winecellar.wine.domain.Wine;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(of = "winecellarId")
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Getter
-@Builder
-@Data
 public class Winecellar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,12 +38,24 @@ public class Winecellar {
     private Member member;
     private String nickName;
     @OneToMany(mappedBy = "winecellar")
-    @Builder.Default
     private List<Wine> wines = new ArrayList<>();
+    private boolean lock;
     @CreationTimestamp
     private Timestamp createdAt;
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    @Builder
+    private Winecellar(Long id, Member member, String nickName, List<Wine> wines, boolean lock) {
+        this.winecellarId = id;
+        this.nickName = nickName;
+        this.lock = lock;
+        this.wines = wines;
+        if (Objects.isNull(this.wines)) {
+            this.wines = new ArrayList<>();
+        }
+        setMember(member);
+    }
 
     public boolean hasWine(Wine wine) {
         return this.wines.contains(wine);

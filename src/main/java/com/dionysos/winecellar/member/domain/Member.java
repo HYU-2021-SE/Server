@@ -16,7 +16,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.dionysos.winecellar.winecellar.domain.Winecellar;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Builder
-@Data
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
