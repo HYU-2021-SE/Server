@@ -23,14 +23,16 @@ class WineRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
 
+    Winecellar winecellar;
+    Member member;
+
     @BeforeEach
     void setUp() {
-        Member member = Member.builder()
-            .memberId(1L)
+        member = Member.builder()
             .build();
         memberRepository.save(member);
 
-        Winecellar winecellar = Winecellar.builder()
+        winecellar = Winecellar.builder()
             .member(new Member())
             .id(1L)
             .nickName("cellar")
@@ -41,7 +43,6 @@ class WineRepositoryTest {
     @Test
     @DisplayName("와인 등록")
     void save() {
-        Winecellar winecellar = winecellarRepository.findById(1L).orElseThrow();
         Wine wine = Wine.builder()
             .wineId(1L)
             .wineName("wine")

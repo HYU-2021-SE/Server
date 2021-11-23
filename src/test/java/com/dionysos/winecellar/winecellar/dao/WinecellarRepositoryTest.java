@@ -19,10 +19,11 @@ class WinecellarRepositoryTest {
     @Autowired
     WinecellarRepository winecellarRepository;
 
+    Member member;
+
     @BeforeEach
     void setUp() {
-        Member member = Member.builder()
-            .memberId(1L)
+        member = Member.builder()
             .memberName("name")
             .build();
 
@@ -32,9 +33,7 @@ class WinecellarRepositoryTest {
     @Test
     @DisplayName("와인셀러 등록")
     void save() {
-        Member member = memberRepository.findById(1L).orElseThrow();
         Winecellar winecellar = Winecellar.builder()
-            .id(1L)
             .member(member)
             .build();
 
