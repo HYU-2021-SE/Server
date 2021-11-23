@@ -14,6 +14,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.dionysos.winecellar.winecellar.domain.Winecellar;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -31,9 +32,12 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
     private String memberName;
+    @NotNull
+    private String email;
     @OneToMany(mappedBy = "member")
     @Builder.Default
     private List<Winecellar> winecellars = new ArrayList<>();
+
     @CreationTimestamp
     private Timestamp createdAt;
     @UpdateTimestamp

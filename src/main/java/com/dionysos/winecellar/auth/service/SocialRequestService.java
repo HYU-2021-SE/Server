@@ -17,8 +17,8 @@ import com.dionysos.winecellar.auth.dto.SocialAccessTokenDto;
 
 @Service
 public class SocialRequestService {
-    public final String redirectUri;
-    public final String clientId;
+    private final String redirectUri;
+    private final String clientId;
     private final HttpClient client = HttpClient.newHttpClient();
 
     public SocialRequestService(

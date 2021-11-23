@@ -1,29 +1,28 @@
-package com.dionysos.winecellar.auth.service;
+package com.dionysos.winecellar.auth.infra;
 
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
-import org.springframework.stereotype.Service;
-
-import com.dionysos.winecellar.member.domain.Member;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import com.dionysos.winecellar.auth.exception.InvalidJwtTokenException;
+import com.dionysos.winecellar.member.domain.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-@Service
-public class JwtTokenService {
+@Component
+public class JwtTokenProvider {
     private final Key key;
     private final long expire;
 
-    public JwtTokenService(@Value("${jwt.token.key}") String key, @Value("${jwt.token.expire}") long expire) {
+    public JwtTokenProvider(@Value("${jwt.token.key}") String key, @Value("${jwt.token.expire-length}") long expire) {
         this.key = Keys.hmacShaKeyFor(Base64.getEncoder().encode(key.getBytes()));
         this.expire = expire;
     }
@@ -45,7 +44,6 @@ public class JwtTokenService {
     public Long getMemberId(String token) {
         JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
         return jwtParser.parseClaimsJws(token).getBody().get("memberId", Long.class);
-        // return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody().getSubject();
     }
 
     public String getMemberEmail(String token) {
@@ -53,17 +51,13 @@ public class JwtTokenService {
         return jwtParser.parseClaimsJws(token).getBody().get("memberEmail", String.class);
     }
 
-    public boolean validateToken(String token) {
+    public Claims getClaims(String token) {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token);
-
-            if (claims.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-
-            return true;
+            JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
+            Jws<Claims> claims = jwtParser.parseClaimsJws(token);
+            return claims.getBody();
         } catch (JwtException | IllegalArgumentException e) {
-            return false;
+            throw new InvalidJwtTokenException("Invalid token");
         }
     }
 }
