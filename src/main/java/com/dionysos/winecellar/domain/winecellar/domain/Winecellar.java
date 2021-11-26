@@ -40,16 +40,21 @@ public class Winecellar {
     @OneToMany(mappedBy = "winecellar")
     private List<Wine> wines = new ArrayList<>();
     private boolean lock;
+    private String lockPassword;
+    private String lightColor;
     @CreationTimestamp
     private Timestamp createdAt;
     @UpdateTimestamp
     private Timestamp updatedAt;
 
     @Builder
-    private Winecellar(Long id, Member member, String nickName, List<Wine> wines, boolean lock) {
+    private Winecellar(Long id, Member member, String nickName, List<Wine> wines, boolean lock, String lockPassword,
+        String lightColor) {
         this.winecellarId = id;
         this.nickName = nickName;
         this.lock = lock;
+        this.lockPassword = lockPassword;
+        this.lightColor = lightColor;
         this.wines = wines;
         if (Objects.isNull(this.wines)) {
             this.wines = new ArrayList<>();
