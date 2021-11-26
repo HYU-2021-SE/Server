@@ -32,6 +32,7 @@ public class Winecellar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long winecellarId;
+    private WinecellarType type;
     @ManyToOne
     @JoinColumn(name = "member_id")
     @NotNull
@@ -48,9 +49,11 @@ public class Winecellar {
     private Timestamp updatedAt;
 
     @Builder
-    private Winecellar(Long id, Member member, String nickName, List<Wine> wines, boolean lock, String lockPassword,
+    private Winecellar(Long id, WinecellarType type, Member member, String nickName, List<Wine> wines, boolean lock,
+        String lockPassword,
         String lightColor) {
         this.winecellarId = id;
+        this.type = type;
         this.nickName = nickName;
         this.lock = lock;
         this.lockPassword = lockPassword;

@@ -8,14 +8,14 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.dionysos.winecellar.domain.auth.interceptor.AuthInterceptor;
-import com.dionysos.winecellar.domain.member.config.LoginMemberEmailArgumentResolver;
+import com.dionysos.winecellar.domain.member.config.LoginMemberIdArgumentResolver;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     private final AuthInterceptor authInterceptor;
-    private final LoginMemberEmailArgumentResolver loginMemberEmailArgumentResolver;
+    private final LoginMemberIdArgumentResolver loginMemberIdArgumentResolver;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -26,6 +26,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(loginMemberEmailArgumentResolver);
+        resolvers.add(loginMemberIdArgumentResolver);
     }
 }

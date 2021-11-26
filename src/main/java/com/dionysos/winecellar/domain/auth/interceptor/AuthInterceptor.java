@@ -20,11 +20,12 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String token = tokenExtractor.extract(request, "bearer");
+        System.out.println(token);
         if (!jwtTokenProvider.validateToken(token)) {
             throw new InvalidJwtTokenException("Invalid token");
         }
-        String email = jwtTokenProvider.getMemberEmail(token);
-        request.setAttribute("loginMemberEmail", email);
+        Long id = jwtTokenProvider.getMemberId(token);
+        request.setAttribute("loginMemberId", id);
         return true;
     }
 }

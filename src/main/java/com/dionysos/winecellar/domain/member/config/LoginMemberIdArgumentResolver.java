@@ -12,10 +12,10 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 @Component
-public class LoginMemberEmailArgumentResolver implements HandlerMethodArgumentResolver {
+public class LoginMemberIdArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(LoginMemberEmail.class);
+        return parameter.hasParameterAnnotation(LoginMemberId.class);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class LoginMemberEmailArgumentResolver implements HandlerMethodArgumentRe
         NativeWebRequest webRequest,
         WebDataBinderFactory binderFactory
     ) {
-        Object id = webRequest.getAttribute("loginMemberEmail", SCOPE_REQUEST);
+        Object id = webRequest.getAttribute("loginMemberId", SCOPE_REQUEST);
         if (Objects.isNull(id)) {
             return null;
         }
