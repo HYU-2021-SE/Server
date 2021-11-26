@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.dionysos.winecellar.domain.auth.interceptor.AuthInterceptor;
-import com.dionysos.winecellar.domain.member.interceptor.LoginMemberEmailArgumentResolver;
+import com.dionysos.winecellar.domain.member.config.LoginMemberEmailArgumentResolver;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -20,8 +20,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
-            .addPathPatterns("/api/**")
-            .excludePathPatterns("/api/auth");
+            .excludePathPatterns("/api/auth/**")
+            .addPathPatterns("/api/**");
     }
 
     @Override

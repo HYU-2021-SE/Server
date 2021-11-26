@@ -1,4 +1,4 @@
-package com.dionysos.winecellar.domain.member.interceptor;
+package com.dionysos.winecellar.domain.member.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

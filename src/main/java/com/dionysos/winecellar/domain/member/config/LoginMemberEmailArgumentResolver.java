@@ -1,4 +1,4 @@
-package com.dionysos.winecellar.domain.member.interceptor;
+package com.dionysos.winecellar.domain.member.config;
 
 import static org.springframework.web.context.request.RequestAttributes.*;
 
