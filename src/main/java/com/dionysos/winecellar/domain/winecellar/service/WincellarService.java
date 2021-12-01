@@ -1,5 +1,7 @@
 package com.dionysos.winecellar.domain.winecellar.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.dionysos.winecellar.domain.member.dao.MemberRepository;
@@ -24,5 +26,11 @@ public class WincellarService {
             .type(WinecellarType.of(winecellarRequestDto.getSerialNo()))
             .build();
         return winecellarRepository.save(winecellar);
+    }
+
+    public List<Winecellar> findAll(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid member"));
+        return winecellarRepository.findAllByMember(member);
     }
 }
