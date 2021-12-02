@@ -1,6 +1,7 @@
 package com.dionysos.winecellar.domain.wine.domain;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,7 @@ public class Wine {
     private Location location = Location.NONE;
     private String labelImage;
     private String corkImage;
+    private Integer vintage; // only year
     private Timestamp purchaseDate;
     private Timestamp producedDate;
     @CreationTimestamp
@@ -43,14 +45,15 @@ public class Wine {
     private Timestamp updatedAt;
 
     @Builder
-    public Wine(Long wineId, String wineName, Winecellar winecellar,
-        Location location, String labelImage, String corkImage, Timestamp purchaseDate, Timestamp producedDate) {
+    public Wine(Long wineId, String wineName, Winecellar winecellar, Location location, String labelImage,
+        String corkImage, Integer vintage, Timestamp purchaseDate, Timestamp producedDate) {
         setWinecellar(winecellar);
         this.wineId = wineId;
         this.wineName = wineName;
         this.location = location;
         this.labelImage = labelImage;
         this.corkImage = corkImage;
+        this.vintage = vintage;
         this.purchaseDate = purchaseDate;
         this.producedDate = producedDate;
     }
@@ -72,6 +75,13 @@ public class Wine {
 
         Location(Integer location) {
             this.location = location;
+        }
+
+        public static Location of(Integer location) {
+            return Arrays.stream(Location.values())
+                .filter(l -> l.getLocation().equals(location))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 선반 위치입니다."));
         }
 
         public Integer getLocation() {

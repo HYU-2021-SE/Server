@@ -93,4 +93,7 @@ public class Winecellar {
         }
     }
 
+    public boolean isOwner(Long memberId) {
+        return this.member.getMemberId().equals(memberId);
+    }
 }
