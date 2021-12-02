@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.dionysos.winecellar.domain.wine.dao.WineRepository;
 import com.dionysos.winecellar.domain.wine.domain.Wine;
 import com.dionysos.winecellar.domain.wine.dto.WineCreateRequestDto;
+import com.dionysos.winecellar.domain.wine.dto.WineDrankDto;
 import com.dionysos.winecellar.domain.winecellar.dao.WinecellarRepository;
 import com.dionysos.winecellar.domain.winecellar.domain.Winecellar;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,19 @@ public class WineService {
 
         this.winecellarRepository.save(winecellar);
         return this.wineRepository.save(wine);
+    }
+
+    public Wine find(Long wineId) {
+        return this.wineRepository.findById(wineId)
+            .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 와인입니다."));
+    }
+
+    public void drank(Long wineId, WineDrankDto wineDrankDto) {
+        Wine wine = this.wineRepository.findById(wineId)
+            .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 와인입니다."));
+
+        wine.drank(wineDrankDto.getCorkImage());
+
+        wineRepository.save(wine);
     }
 }

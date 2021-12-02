@@ -65,6 +65,11 @@ public class Wine {
         }
     }
 
+    public void drank(String corkImage) {
+        this.corkImage = corkImage;
+        this.location = Location.HISTORY;
+    }
+
     public enum Location {
         FIRST(1),
         SECOND(2),
