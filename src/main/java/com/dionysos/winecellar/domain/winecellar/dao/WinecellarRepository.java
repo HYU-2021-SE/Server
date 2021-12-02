@@ -11,4 +11,6 @@ import com.dionysos.winecellar.domain.winecellar.domain.Winecellar;
 @Repository
 public interface WinecellarRepository extends JpaRepository<Winecellar, Long> {
     List<Winecellar> findAllByMember(Member member);
+
+    Winecellar findByWinecellarIdAndMember(Long id, Member member);
 }

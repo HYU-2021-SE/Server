@@ -18,6 +18,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.dionysos.winecellar.domain.member.domain.Member;
 import com.dionysos.winecellar.domain.wine.domain.Wine;
+import com.dionysos.winecellar.domain.winecellar.dto.WinecellarUpdateRequestDto;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -65,6 +66,13 @@ public class Winecellar {
         setMember(member);
     }
 
+    public void update(WinecellarUpdateRequestDto dto) {
+        this.nickName = dto.getNickName();
+        this.lock = dto.isLock();
+        this.lockPassword = dto.getLockPassword();
+        this.lightColor = dto.getLightColor();
+    }
+
     public boolean hasWine(Wine wine) {
         return this.wines.contains(wine);
     }
@@ -79,4 +87,5 @@ public class Winecellar {
             member.add(this);
         }
     }
+
 }

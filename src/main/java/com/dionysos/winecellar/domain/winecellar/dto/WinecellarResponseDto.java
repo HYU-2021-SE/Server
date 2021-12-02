@@ -7,9 +7,11 @@ import com.dionysos.winecellar.domain.winecellar.domain.Winecellar;
 import com.dionysos.winecellar.domain.winecellar.domain.WinecellarType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class WinecellarResponseDto {
     private Long winecellarId;
     private WinecellarType type;

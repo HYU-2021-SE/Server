@@ -9,7 +9,8 @@ import com.dionysos.winecellar.domain.member.domain.Member;
 import com.dionysos.winecellar.domain.winecellar.dao.WinecellarRepository;
 import com.dionysos.winecellar.domain.winecellar.domain.Winecellar;
 import com.dionysos.winecellar.domain.winecellar.domain.WinecellarType;
-import com.dionysos.winecellar.domain.winecellar.dto.WinecellarRequestDto;
+import com.dionysos.winecellar.domain.winecellar.dto.WinecellarCreateRequestDto;
+import com.dionysos.winecellar.domain.winecellar.dto.WinecellarUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,12 +19,12 @@ public class WincellarService {
     private final MemberRepository memberRepository;
     private final WinecellarRepository winecellarRepository;
 
-    public Winecellar create(Long memberId, WinecellarRequestDto winecellarRequestDto) {
+    public Winecellar create(Long memberId, WinecellarCreateRequestDto winecellarCreateRequestDto) {
         Member member = memberRepository.findById(memberId)
             .orElseThrow(() -> new IllegalArgumentException("Invalid member"));
         Winecellar winecellar = Winecellar.builder()
             .member(member)
-            .type(WinecellarType.of(winecellarRequestDto.getSerialNo()))
+            .type(WinecellarType.of(winecellarCreateRequestDto.getSerialNo()))
             .build();
         return winecellarRepository.save(winecellar);
     }
@@ -32,5 +33,15 @@ public class WincellarService {
         Member member = memberRepository.findById(memberId)
             .orElseThrow(() -> new IllegalArgumentException("Invalid member"));
         return winecellarRepository.findAllByMember(member);
+    }
+
+    public Winecellar update(Long memberId, WinecellarUpdateRequestDto winecellarUpdateRequestDto) {
+        Member member = memberRepository.findById(memberId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid member"));
+        Winecellar winecellar = winecellarRepository.findByWinecellarIdAndMember(
+            winecellarUpdateRequestDto.getWinecellarId(), member);
+
+        winecellar.update(winecellarUpdateRequestDto);
+        return winecellarRepository.save(winecellar);
     }
 }
