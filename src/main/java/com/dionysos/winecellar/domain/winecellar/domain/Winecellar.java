@@ -44,6 +44,8 @@ public class Winecellar {
     private boolean lock;
     private String lockPassword;
     private String lightColor;
+    private Integer temperature;
+    private Integer humidity;
     @CreationTimestamp
     private Timestamp createdAt;
     @UpdateTimestamp
@@ -51,14 +53,15 @@ public class Winecellar {
 
     @Builder
     private Winecellar(Long id, WinecellarType type, Member member, String nickName, List<Wine> wines, boolean lock,
-        String lockPassword,
-        String lightColor) {
+        String lockPassword, String lightColor, Integer temperature, Integer humidity) {
         this.winecellarId = id;
         this.type = type;
         this.nickName = nickName;
         this.lock = lock;
         this.lockPassword = lockPassword;
         this.lightColor = lightColor;
+        this.temperature = temperature;
+        this.humidity = humidity;
         this.wines = wines;
         if (Objects.isNull(this.wines)) {
             this.wines = new ArrayList<>();
@@ -71,6 +74,8 @@ public class Winecellar {
         this.lock = dto.isLock();
         this.lockPassword = dto.getLockPassword();
         this.lightColor = dto.getLightColor();
+        this.humidity = dto.getHumidity();
+        this.temperature = dto.getTemperature();
     }
 
     public boolean hasWine(Wine wine) {

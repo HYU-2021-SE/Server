@@ -19,6 +19,8 @@ public class WinecellarResponseDto {
     private boolean lock;
     private String lockPassword;
     private String lightColor;
+    private Integer temperature;
+    private Integer humidity;
     private List<WineDto> wineDtos;
 
     public static WinecellarResponseDto from(Winecellar winecellar) {
@@ -27,8 +29,8 @@ public class WinecellarResponseDto {
             .map(WineDto::from)
             .collect(Collectors.toList());
 
-        return new WinecellarResponseDto(winecellar.getWinecellarId(), winecellar.getType(),
-            winecellar.getNickName(), winecellar.isLock(), winecellar.getLockPassword(), winecellar.getLightColor(),
-            wineDtos);
+        return new WinecellarResponseDto(winecellar.getWinecellarId(), winecellar.getType(), winecellar.getNickName(),
+            winecellar.isLock(), winecellar.getLockPassword(), winecellar.getLightColor(), winecellar.getTemperature(),
+            winecellar.getHumidity(), wineDtos);
     }
 }

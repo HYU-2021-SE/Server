@@ -40,7 +40,6 @@ public class WincellarService {
             .orElseThrow(() -> new IllegalArgumentException("Invalid member"));
         Winecellar winecellar = winecellarRepository.findByWinecellarIdAndMember(
             winecellarUpdateRequestDto.getWinecellarId(), member);
-
         winecellar.update(winecellarUpdateRequestDto);
         return winecellarRepository.save(winecellar);
     }

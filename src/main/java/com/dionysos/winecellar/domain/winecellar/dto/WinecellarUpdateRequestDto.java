@@ -9,4 +9,6 @@ public class WinecellarUpdateRequestDto {
     private boolean lock;
     private String lockPassword;
     private String lightColor;
+    private Integer humidity;
+    private Integer temperature;
 }
