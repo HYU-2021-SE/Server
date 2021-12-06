@@ -93,4 +93,21 @@ public class Wine {
             return location;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Wine{" +
+            "wineId=" + wineId +
+            ", wineName='" + wineName + '\'' +
+            ", winecellar=" + winecellar +
+            ", location=" + location +
+            ", labelImage='" + labelImage + '\'' +
+            ", corkImage='" + corkImage + '\'' +
+            ", vintage=" + vintage +
+            ", purchaseDate=" + purchaseDate +
+            ", producedDate=" + producedDate +
+            ", createdAt=" + createdAt +
+            ", updatedAt=" + updatedAt +
+            '}';
+    }
 }
