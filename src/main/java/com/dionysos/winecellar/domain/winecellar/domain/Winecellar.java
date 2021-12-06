@@ -96,4 +96,8 @@ public class Winecellar {
     public boolean isOwner(Long memberId) {
         return this.member.getMemberId().equals(memberId);
     }
+
+    public void setWines(List<Wine> wines) {
+        this.wines = wines;
+    }
 }

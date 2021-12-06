@@ -1,7 +1,5 @@
 package com.dionysos.winecellar.domain.winecellar.api;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,8 +35,8 @@ public class WinecellarController {
 
     @GetMapping("/api/winecellar")
     public ResponseEntity<WinecellarResponseDto> get(@LoginMemberId Long memberId) {
-        List<Winecellar> winecellars = wincellarService.findAll(memberId);
-        return ResponseEntity.ok(WinecellarResponseDto.from(winecellars.get(0)));
+        Winecellar winecellar = wincellarService.findAll(memberId);
+        return ResponseEntity.ok(WinecellarResponseDto.from(winecellar));
     }
 
     @PutMapping("/api/winecellar")
