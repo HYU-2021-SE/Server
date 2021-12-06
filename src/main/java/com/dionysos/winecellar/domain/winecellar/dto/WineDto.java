@@ -16,5 +16,5 @@ public class WineDto {
     public static WineDto from(Wine wine) {
         System.out.println(wine.toString());
         return new WineDto(wine.getWineId(), wine.getWineName(), wine.getLocation(), wine.getLabelImage());
-    }[]
+    }
 }
