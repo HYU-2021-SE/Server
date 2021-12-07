@@ -11,8 +11,10 @@ public class WineDto {
     private String wineName;
     private Integer location;
     private String labelImage;
+    private String corkImage;
 
     public static WineDto from(Wine wine) {
-        return new WineDto(wine.getWineId(), wine.getWineName(), wine.getLocation().getLocation(), wine.getLabelImage());
+        return new WineDto(wine.getWineId(), wine.getWineName(), wine.getLocation().getLocation(), wine.getLabelImage(),
+            wine.getCorkImage());
     }
 }
